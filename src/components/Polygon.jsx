@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { requestTickers } from '../actions/tickers';
 
 const Polygon = (props) => {
     const [value, setValue] = useState('');
@@ -12,6 +13,8 @@ const Polygon = (props) => {
 
     const handleSubmit = (e) => {
         // do something with value (submit value)
+        console.log('test', value);
+        requestTickers(value);
         e.preventDefault()
     }
 
