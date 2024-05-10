@@ -1,13 +1,11 @@
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import { rootReducer } from './reducers/index';
 import { createBrowserHistory } from 'history';
-import { fetchTickers } from 'tickers';
-import { fetchItems } from './actions/items';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import config from './config/client';
 import freeze from 'redux-freeze';
+import tickerReducer from './reducers/tickerReducer';
 
 const history = createBrowserHistory();
 const loggerMiddleware = createLogger();
@@ -30,7 +28,7 @@ const store = createStore(
 );
 
 // initialize app state
-// store.dispatch({fetchTickers()})
+// store.dispatch(fetchTickers());
 // store.dispatch(fetchItems(config.endpoint + 'items'));
 
 export { store, history };

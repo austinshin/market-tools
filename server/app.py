@@ -1,6 +1,7 @@
 '''server/app.py - main api app declaration'''
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 from flask_cors import CORS
+from markupsafe import Markup
 import requests
 import constants
 
@@ -19,16 +20,11 @@ POLYGON_URL = 'https://api.polygon.io/v2/aggs/ticker/AAPL/range/1/day/2023-01-09
 # API routes
 ##
 
-@app.route('/api/items')
-def items():
-  '''Sample API route for data'''
-  return jsonify([{'title': 'A'}, {'title': 'B'}])
-
-@app.route('/api/polygon')
-def get_data():
-  '''Sample API route for data'''
+@app.route('/api/polygon', methods=['POST'])
+def handle_post():
   payload = {'apiKey': constants.polygon_api_key}
-  print(payload)
+  
+  print(request.data)
   r = requests.get(POLYGON_URL, params=payload)
   data = r.json()
 

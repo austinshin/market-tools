@@ -1,22 +1,30 @@
 import fetch from 'isomorphic-fetch';
+import config from '../config/client';
 
 export const requestTickers = (query) => ({
-  type: 'REQUEST_TICKERS', query
-})
+  type: 'REQUEST_TICKERS',
+  query
+});
 
-export const receiveTickers = (tickers) = ({
-  type: 'RECEIVE_TICKERS', tickers
+export const receiveTickers = (tickers) => ({
+  type: 'RECEIVE_TICKERS',
+  tickers
 })
 
 export const tickerRequestFailed = (err) => ({
-  type: 'TICKER_REQUEST_FAILED', err
-})
+  type: 'TICKER_REQUEST_FAILED',
+  err
+});
 
 export function fetchTickers(query) {
   return function (dispatch) {
-    console.log('query', query);
     dispatch(requestTickers(query))
-    return fetch(query)
+    console.log('query');
+    console.log(config);
+    return fetch(`${config.endpoint}polygon`, {
+      method: "POST",
+      body: query
+    })
       .then(res => res.json()
         .then(json => ({
           status: res.status,
