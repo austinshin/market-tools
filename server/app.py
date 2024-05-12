@@ -30,7 +30,6 @@ def handle_post():
 
 @app.route('/api/account-info', methods=['GET'])
 def get_kelly_criterion():
-
   edge = kelly_criterion.calculate_edge(win_probability, profit_ratio)
   stake = kelly_criterion.calculate_stake(win_probability, profit_ratio)
   expected_growth = kelly_criterion.calculate_expected_growth(win_probability, profit_ratio)
@@ -44,6 +43,7 @@ def get_kelly_criterion():
     "stake": stake,
     "expected_growth": expected_growth
   }
+
   return account_info
 
 ##

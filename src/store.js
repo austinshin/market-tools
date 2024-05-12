@@ -5,7 +5,8 @@ import { createBrowserHistory } from 'history';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import freeze from 'redux-freeze';
-import tickerReducer from './reducers/tickerReducer';
+import config from './config/client'
+import { fetchAccountInfo } from './actions/accountInfo';
 
 const history = createBrowserHistory();
 const loggerMiddleware = createLogger();
@@ -28,7 +29,6 @@ const store = createStore(
 );
 
 // initialize app state
-// store.dispatch(fetchTickers());
-// store.dispatch(fetchItems(config.endpoint + 'items'));
+store.dispatch(fetchAccountInfo(config.endpoint + 'account-info'));
 
 export { store, history };

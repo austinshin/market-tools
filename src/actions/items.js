@@ -21,7 +21,7 @@ export const itemRequestFailed = (err) => ({
 })
 
 export function fetchItems(query) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestItems(query))
     dispatch(incrementSearches())
     return fetch(query)
@@ -31,8 +31,12 @@ export function fetchItems(query) {
           json
         })))
       .then(({ status, json }) => {
-        if (status >= 400) dispatch(itemRequestFailed())
-        else dispatch(receiveItems(json))
-      }, err => { dispatch(itemRequestFailed(err))  })
+        if (status >= 400)
+          dispatch(itemRequestFailed())
+        else
+          dispatch(receiveItems(json))
+      }, err => {
+        dispatch(itemRequestFailed(err))
+      })
   }
 }
