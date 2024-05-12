@@ -30,18 +30,18 @@ def handle_post():
 
 @app.route('/api/account-info', methods=['GET'])
 def get_kelly_criterion():
-  edge = kelly_criterion.calculate_edge(win_probability, profit_ratio)
-  stake = kelly_criterion.calculate_stake(win_probability, profit_ratio)
-  expected_growth = kelly_criterion.calculate_expected_growth(win_probability, profit_ratio)
+  edge = kelly_criterion.calculate_edge(winProbability, profitRatio)
+  stake = kelly_criterion.calculate_stake(winProbability, profitRatio)
+  expectedGrowth = kelly_criterion.calculate_expected_growth(winProbability, profitRatio)
   account_info = {
-    "1R": bankroll * 0.01,
-    "2R": bankroll * 0.02,
-    "bankroll": bankroll,
-    "win_probability": win_probability,
-    "profit_ratio": profit_ratio,
+    "ONE_R": accountBalance * 0.01,
+    "TWO_R": accountBalance * 0.02,
+    "accountBalance": accountBalance,
+    "winProbability": winProbability,
+    "profitRatio": profitRatio,
     "edge": edge,
     "stake": stake,
-    "expected_growth": expected_growth
+    "expectedGrowth": expectedGrowth
   }
 
   return account_info

@@ -1,7 +1,16 @@
 const initialState = {
   // searches: 0,
   isFetching: false,
-  accountInfo: {},
+  accountInfo: {
+    "ONE_R": 0,
+    "TWO_R": 0,
+    "accountBalance": 0,
+    "winProbability": 0,
+    "profitRatio": 0,
+    "edge": 0,
+    "stake": 0,
+    "expectedGrowth": 0,
+  },
   err: null,
 }
 
