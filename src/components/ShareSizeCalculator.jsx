@@ -34,16 +34,30 @@ const ShareSizeCalculator = (props) => {
   }
 
   const calculate = (e) => {
-    console.log('formData', formData);
-    const { accountBalance, risk, entry, stopLoss, rewardRisk, fees, slippage } = formData;
-    const moneyAtRisk = accountBalance * risk / 100;
-    const tradeSize = moneyAtRisk / (entry - stopLoss);
+    let { accountBalance, risk, entry, stopLoss, rewardRisk, fees, slippage } = formData;
+    for (const key in formData) {
+      parseFloat(formData[key]);
+    }
+
+    let takeProfit, moneyAtRisk, tradeSize;
+    moneyAtRisk = parseFloat(accountBalance * risk / 100);
+    if (entry > stopLoss) {
+      tradeSize = parseFloat(moneyAtRisk / (stopLoss - entry));
+    } else {
+      tradeSize = parseFloat(moneyAtRisk / (entry - stopLoss))
+    }
+
     const positionAmount = tradeSize * entry;
     const effectiveRisk = tradeSize * stopLoss - tradeSize * entry;
-    // const takeProfit = 
-    setShareSize(tradeSize);
-    setPositionAmount(positionAmount);
-    setEffectiveRisk(effectiveRisk);
+    if (entry > stopLoss) {
+      takeProfit = parseFloat(entry) - (moneyAtRisk / tradeSize) * rewardRisk;
+    } else {
+      takeProfit = parseFloat(entry) + (moneyAtRisk / tradeSize) * rewardRisk;
+    }
+    setShareSize(tradeSize.toFixed(2));
+    setPositionAmount(positionAmount.toFixed(2));
+    setEffectiveRisk(effectiveRisk.toFixed(2));
+    setTakeProfit(takeProfit.toFixed(2));
   }
 
   return (
@@ -130,18 +144,19 @@ const ShareSizeCalculator = (props) => {
 
         </div>
         <div className="p-2">
-          <div>
+          <div className="share-size-text">
             Shares: {shareSize}
           </div>
-          <div>
-            Buying Power required : ${positionAmount}
-          </div>
-          <div>
-            Effective risk: ${effectiveRisk}
-          </div>
-          <div>
+          <div className="take-profit-text">
             Take profit: ${takeProfit}
           </div>
+          <div className="buying-power-text">
+            Buying Power required : ${positionAmount}
+          </div>
+          <div className="effective-risk-text">
+            Effective risk: ${effectiveRisk}
+          </div>
+
         </div>
         {/* <div className="p-2">3</div> */}
       </Stack>

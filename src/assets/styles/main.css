@@ -29,3 +29,10 @@ body {
 .polygon-submit {
   margin-top: 10px;
 }
+
+.share-size-text,
+.take-profit-text {
+  font-size: 30px;
+  color: green;
+  font-weight: bold;
+}
