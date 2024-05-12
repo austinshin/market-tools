@@ -5,9 +5,9 @@ export const requestAccountInfo = (query) => ({
   query
 });
 
-export const receiveAccountInfo = (tickers) => ({
+export const receiveAccountInfo = (accountInfo) => ({
   type: 'RECEIVE_ACCOUNT_INFO',
-  tickers
+  accountInfo
 })
 
 export const accountInfoRequestFailed = (err) => ({
@@ -28,7 +28,6 @@ export function fetchAccountInfo(query) {
           json
         })))
       .then(({ status, json }) => {
-        console.log('json', json);
         if (status >= 400)
           dispatch(accountInfoRequestFailed())
         else

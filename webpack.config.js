@@ -14,7 +14,7 @@ const paths = {
 
 const htmlConfig = {
   template: path.join(paths.src, 'index.html'),
-  minify : {
+  minify: {
     collapseWhitespace: true,
   }
 }
@@ -40,7 +40,8 @@ const common = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/env']
+            presets: ['@babel/env'],
+            plugins: ['@babel/plugin-proposal-optional-chaining']
           }
         }
       },
@@ -107,9 +108,11 @@ const prodSettings = {
   },
   devtool: 'source-map',
   plugins: [
-    new webpack.DefinePlugin({ 'process.env': {
-      NODE_ENV: JSON.stringify('production')
-    }}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
     new OptimizeCssAssetsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
   ]

@@ -3,12 +3,18 @@ import Container from 'react-bootstrap/Container';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Home = (props) => {
-  const marketInfo = useSelector(state => state.marketInfo);
+  const { accountInfo } = useSelector(state => state?.accountInfo);
   const [value, setValue] = useState('');
+
+  function bankroll() {
+    // console.log('state', state);
+    console.log('1', accountInfo)
+    return accountInfo.bankroll
+  }
 
   return (
     <Container>
-      Dashboard
+      {bankroll()}
     </Container>
   )
 

@@ -6,6 +6,8 @@ const initialState = {
 }
 
 const accountInfoReducer = (state = initialState, action) => {
+  console.log('state', state)
+  console.log('action', action)
   switch (action.type) {
     case 'REQUEST_ACCOUNT_INFO':
       return Object.assign({}, state, {
