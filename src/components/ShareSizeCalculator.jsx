@@ -11,6 +11,9 @@ const ShareSizeCalculator = (props) => {
 
   const { accountInfo } = useSelector(state => state?.accountInfo);
   const [shareSize, setShareSize] = useState(0);
+  const [positionAmount, setPositionAmount] = useState(0);
+  const [effectiveRisk, setEffectiveRisk] = useState(0);
+  const [takeProfit, setTakeProfit] = useState(0);
   const [formData, setFormData] = useState({
     accountBalance: 0,
     risk: 1,
@@ -34,13 +37,13 @@ const ShareSizeCalculator = (props) => {
     console.log('formData', formData);
     const { accountBalance, risk, entry, stopLoss, rewardRisk, fees, slippage } = formData;
     const moneyAtRisk = accountBalance * risk / 100;
-
-    let tradeSize = moneyAtRisk / (entry - stopLoss);
-    console.log('moneyatRisk', moneyAtRisk)
-    console.log('entry', entry)
-    console.log('stop loss', stopLoss);
-    console.log('tradeSize', tradeSize);
+    const tradeSize = moneyAtRisk / (entry - stopLoss);
+    const positionAmount = tradeSize * entry;
+    const effectiveRisk = tradeSize * stopLoss - tradeSize * entry;
+    // const takeProfit = 
     setShareSize(tradeSize);
+    setPositionAmount(positionAmount);
+    setEffectiveRisk(effectiveRisk);
   }
 
   return (
@@ -71,7 +74,6 @@ const ShareSizeCalculator = (props) => {
             name="risk"
             onChange={handleChange}
           />
-
           <InputGroup.Text id="basic-addon1">Reward/Risk</InputGroup.Text>
           <Form.Control
             placeholder="Reward/Risk"
@@ -82,7 +84,7 @@ const ShareSizeCalculator = (props) => {
             name="rewardRisk"
             onChange={handleChange}
           />
-          <InputGroup.Text id="basic-addon1">Fees (%)</InputGroup.Text>
+          {/* <InputGroup.Text id="basic-addon1">Fees (%)</InputGroup.Text>
           <Form.Control
             placeholder="Fees"
             aria-label="Fees"
@@ -101,7 +103,7 @@ const ShareSizeCalculator = (props) => {
             value={formData.slippage}
             name="slippage"
             onChange={handleChange}
-          />
+          /> */}
           <InputGroup.Text id="basic-addon1">Entry ($)</InputGroup.Text>
           <Form.Control
             placeholder="Entry"
@@ -122,18 +124,26 @@ const ShareSizeCalculator = (props) => {
             name="stopLoss"
             onChange={handleChange}
           />
-          <Button className="share-size-calculator-submit" variant="success" onClick={calculate}>Calculate</Button>
+          <Button className="share-size-calculator-submit" variant="success" onClick={calculate}>
+            Calculate
+          </Button>
 
         </div>
         <div className="p-2">
           <div>
-            {shareSize} shares
+            Shares: {shareSize}
           </div>
           <div>
-            Profit target
+            Buying Power required : ${positionAmount}
+          </div>
+          <div>
+            Effective risk: ${effectiveRisk}
+          </div>
+          <div>
+            Take profit: ${takeProfit}
           </div>
         </div>
-        <div className="p-2">3</div>
+        {/* <div className="p-2">3</div> */}
       </Stack>
 
     </Container>

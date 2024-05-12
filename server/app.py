@@ -20,7 +20,7 @@ CORS(app)
 
 @app.route('/api/polygon', methods=['POST'])
 def handle_post():
-  payload = {'apiKey': polygon_api_key}
+  payload = {'apiKey': POLYGON_API_KEY}
   
   print(request.data)
   r = requests.get(POLYGON_URL, params=payload)
