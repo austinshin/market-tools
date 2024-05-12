@@ -8,3 +8,4 @@ werkzeug==0.16.1
 setuptools
 polygon-api-client
 requests
+numpy

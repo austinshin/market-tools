@@ -15,21 +15,22 @@ export default class AppWrapper extends React.Component {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                                <div className='app-container'>
-                                    <Link className='nav-button' to={'/'}>Home</Link>
-                                    <Link className='nav-button' to={'/about'}>Link</Link>
-                                    <Link className='nav-button' to={'/about/subroute'}>Subcomponent</Link>
-                                    <Link className='nav-button' to={'/polygon'}>Polygon</Link>
-                                    {this.props.children}
-                                </div>
+
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
                 </Navbar>
                 <Container className="main-content">
-
+                    <div className='app-container'>
+                        <Link className='nav-button' to={'/'}>Home</Link>
+                        <Link className='nav-button' to={'/about'}>Link</Link>
+                        <Link className='nav-button' to={'/about/subroute'}>Subcomponent</Link>
+                        <Link className='nav-button' to={'/polygon'}>Polygon</Link>
+                        {this.props.children}
+                    </div>
                 </Container>
             </Container>
+
         )
     }
 }
